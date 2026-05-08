@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="top-bar py-3">
+  <div class="container d-flex flex-wrap align-items-center justify-content-between">
+    <div>
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <div
+          class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold"
+          style="width: 42px; height: 42px; background: linear-gradient(135deg, #2563eb, #38bdf8);"
+        >
+          S
+        </div>
+
+        <div>
+          <h1 class="brand-title mb-0">SmartTask</h1>
+          <small class="text-muted">Productivity Workspace</small>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex gap-2 mt-3 mt-md-0">
+      <a href="#" class="btn btn-outline-muted">Settings</a>
+
+      <form method="POST" action="{{ url_for('auth.logout') }}">
+        <button class="btn btn-dark" type="submit">
+          Logout
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="container my-4">
+  <div class="hero fade-in-up">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h2 class="brand-title mb-3">
+          Plan smarter. Execute faster.
+        </h2>
+        <p class="mb-0">Track tasks, measure progress, and stay aligned with your goals in one clean dashboard.</p>
+      </div>
+      <div class="col-lg-5 mt-4 mt-lg-0">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="summary-card text-center">
+              <div class="summary-label">📋 Total Tasks</div>
+              <div class="summary-value">{{ analytics.total_tasks }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="summary-card text-center">
+              <div class="summary-label">✅ Completed</div>
+              <div class="summary-value">{{ analytics.completed_tasks }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="summary-card text-center">
+              <div class="summary-label">⏳ Pending</div>
+              <div class="summary-value">{{ analytics.pending_tasks }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="summary-card text-center">
+              <div class="summary-label">📈 Completion</div>
+              <div class="summary-value">{{ analytics.completion_percentage }}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mb-5">
+  <div class="row g-4">
+    <div class="col-lg-4">
+      <div class="card-shell p-4 position-relative">
+        <h5 class="brand-title">Add new task</h5>
+        <p class="text-muted">Create a task and assign a priority.</p>
+        <form
+          method="POST"
+          action="{{ url_for('tasks.create_task') }}"
+        >
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input
+              class="form-control ghost-input"
+              name="title"
+              placeholder="Design onboarding flow"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea
+              class="form-control ghost-input"
+              name="description"
+              rows="3"
+              placeholder="Outline steps and deliverables"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Priority</label>
+            <select class="form-select ghost-input" name="priority">
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3" selected>Normal</option>
+              <option value="4">Low</option>
+            </select>
+          </div>
+          <button class="btn btn-primary w-100" type="submit">Add task</button>
+          <!-- Loading overlay removed for standard form submission -->
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card-shell p-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+          <div>
+            <h5 class="brand-title mb-1">Tasks</h5>
+            <small class="text-muted">Overview of your active tasks</small>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-muted">Filter</button>
+            <button class="btn btn-dark">Export</button>
+          </div>
+        </div>
+        <div class="table-responsive task-table">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Updated</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if tasks %}
+                {% for task in tasks %}
+                <tr>
+                  <td>
+                    <div class="fw-semibold">{{ task.title }}</div>
+                    <small class="text-muted">
+                      {{ task.description or 'No description provided' }}
+                    </small>
+                  </td>
+
+                  <td>
+                    {% if task.priority == 1 %}
+                      <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">
+                        High
+                      </span>
+                    {% elif task.priority == 2 %}
+                      <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill">
+                        Medium
+                      </span>
+                    {% elif task.priority == 3 %}
+                      <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                        Normal
+                      </span>
+                    {% else %}
+                      <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                        Low
+                      </span>
+                    {% endif %}
+                  </td>
+
+                  <td>
+                    <span class="badge-status {{ task.status|lower }}">
+                      {{ task.status }}
+                    </span>
+                  </td>
+
+                  <td class="text-muted">
+                    {{ task.created_at.strftime('%d %b %Y') }}
+                  </td>
+
+                  <td>
+                    <div class="d-flex gap-2">
+                      {% if task.status != 'completed' %}
+                      <form
+                        method="POST"
+                        action="{{ url_for('tasks.complete_task', task_id=task.id) }}"
+                      >
+                        <button class="btn btn-sm btn-success" type="submit">
+                          Complete
+                        </button>
+                      </form>
+                      {% endif %}
+
+                      <form
+                        method="POST"
+                        action="{{ url_for('tasks.delete_task_form', task_id=task.id) }}"
+                      >
+                        <button class="btn btn-sm btn-danger" type="submit">
+                          Delete
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="5" class="text-center text-muted py-4">
+                    📋 No tasks yet. Create your first task to get started.
+                  </td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        <div class="task-cards d-grid gap-3">
+          {% if tasks %}
+            {% for task in tasks %}
+            <div class="task-card">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h6>{{ task.title }}</h6>
+                  <p class="text-muted mb-2">
+                    {{ task.description or 'No description provided' }}
+                  </p>
+                </div>
+
+                <span class="badge-status {{ task.status|lower }}">
+                  {{ task.status }}
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span class="text-muted">
+                  Priority: {{ task.priority }}
+                </span>
+
+                <div class="d-flex gap-2">
+                  {% if task.status != 'completed' %}
+                  <form
+                    method="POST"
+                    action="{{ url_for('tasks.complete_task', task_id=task.id) }}"
+                  >
+                    <button class="btn btn-sm btn-success" type="submit">
+                      Complete
+                    </button>
+                  </form>
+                  {% endif %}
+
+                  <form
+                    method="POST"
+                    action="{{ url_for('tasks.delete_task_form', task_id=task.id) }}"
+                  >
+                    <button class="btn btn-sm btn-danger" type="submit">
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="task-card text-center text-muted">
+              📋 No tasks yet. Create your first task to get started.
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

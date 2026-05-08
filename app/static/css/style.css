@@ -1,0 +1,217 @@
+:root {
+  --bg: #f5f7fb;
+  --bg-alt: #eef2f8;
+  --ink: #1b1f2a;
+  --muted: #6c7383;
+  --primary: #0f62fe;
+  --accent: #12b886;
+  --warning: #f08c00;
+  --danger: #e03131;
+  --card: #ffffff;
+  --shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  --radius: 16px;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: radial-gradient(circle at top, #f8fafc, #eef1f7);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.brand-title {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.top-bar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.hero {
+  background: linear-gradient(120deg, #0f62fe 0%, #67e8f9 100%);
+  color: white;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.card-shell {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.summary-card {
+  padding: 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  color: #111827;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.summary-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  margin-top: 10px;
+}
+
+.task-table th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-status {
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-status.pending {
+  background: rgba(240, 140, 0, 0.12);
+  color: var(--warning);
+}
+
+.badge-status.completed {
+  background: rgba(18, 184, 134, 0.12);
+  color: var(--accent);
+}
+
+.task-card {
+  border-radius: 18px;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 32px rgba(15, 23, 42, 0.1);
+}
+
+.task-card h6 {
+  font-weight: 700;
+}
+
+.ghost-input {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.2s ease;
+}
+
+.ghost-input:focus {
+  border-color: rgba(15, 98, 254, 0.5);
+  box-shadow: 0 0 0 4px rgba(15, 98, 254, 0.12);
+  background: #ffffff;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24);
+}
+
+.btn-outline-muted {
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  color: var(--muted);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-muted:hover {
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.task-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.task-table tbody tr:hover {
+  background: rgba(15, 98, 254, 0.03);
+}
+
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.loading-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 991px) {
+  .task-table {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .task-cards {
+    display: none;
+  }
+}

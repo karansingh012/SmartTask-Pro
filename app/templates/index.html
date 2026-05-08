@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container py-5">
+  <div class="row align-items-center min-vh-75">
+    <div class="col-lg-6 mb-5 mb-lg-0">
+      <span class="badge bg-primary-subtle text-primary px-3 py-2 mb-3">
+        Smart Productivity Platform
+      </span>
+
+      <h1 class="display-4 fw-bold mb-4">
+        Manage tasks with clarity and speed.
+      </h1>
+
+      <p class="lead text-muted mb-4">
+        SmartTask helps teams and individuals organize work, track progress,
+        and stay productive with a modern dashboard experience.
+      </p>
+
+      <div class="d-flex flex-wrap gap-3">
+        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg px-4">
+          Get Started
+        </a>
+
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-dark btn-lg px-4">
+          Login
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="p-5 text-white" style="background: linear-gradient(135deg, #2563eb, #38bdf8);">
+          <h3 class="fw-bold mb-4">Why SmartTask?</h3>
+
+          <div class="mb-4">
+            <h5 class="fw-semibold">Task Management</h5>
+            <p class="mb-0 opacity-75">
+              Create, organize, and prioritize tasks efficiently.
+            </p>
+          </div>
+
+          <div class="mb-4">
+            <h5 class="fw-semibold">Real-Time Analytics</h5>
+            <p class="mb-0 opacity-75">
+              Track completion progress and productivity metrics instantly.
+            </p>
+          </div>
+
+          <div>
+            <h5 class="fw-semibold">Modern Dashboard</h5>
+            <p class="mb-0 opacity-75">
+              Clean UI designed for fast workflow management.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

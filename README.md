@@ -30,7 +30,7 @@ https://smarttask-pro-lxsm.onrender.com
 
 ![Dashboard](./screenshots/dashboard.png)
 
----
+----
 
 # Features
 

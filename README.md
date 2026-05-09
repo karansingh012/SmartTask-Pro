@@ -1,9 +1,34 @@
-<<<<<<< HEAD
 # SmartTask – Real-Time Task Management System
 
 SmartTask is a Flask-based task management web application built with PostgreSQL, REST APIs, and WebSocket-powered real-time updates.
 
 The project demonstrates backend engineering concepts such as authentication, database design, modular architecture, realtime communication, and frontend-backend integration.
+
+---
+
+## Live Demo
+
+https://smarttask-pro-lxsm.onrender.com
+
+---
+
+## Screenshots
+
+### Landing Page
+
+![Landing Page](./screenshots/landing-page.png)
+
+### User Registration
+
+![Register](./screenshots/register-page.png)
+
+### User Login
+
+![Login](./screenshots/login-page.png)
+
+### Dashboard & Analytics
+
+![Dashboard](./screenshots/dashboard.png)
 
 ---
 
@@ -262,4 +287,3 @@ MIT License
 =======
 # SmartTask-Pro
 Real-time task management system built with Flask, PostgreSQL, SQLAlchemy, and Flask-SocketIO.
->>>>>>> c3c6cfcfa44cd4f4737d3bd5115008abb069484c
